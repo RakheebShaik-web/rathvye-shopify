@@ -2,6 +2,7 @@
   <div class="footer-grid page-width">
     <div><p class="footer-mark">RATHVYE</p><p class="footer-tag">{{ section.settings.tagline }}</p></div>
     {% for block in section.blocks %}<div {{ block.shopify_attributes }}><p class="footer-title">{{ block.settings.heading }}</p>{% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}</div>{% endfor %}
+    <div class="footer-services"><p class="footer-title">{{ 'footer.client_services' | t }}</p><a href="/pages/about">{{ 'footer.about' | t }}</a><a href="/pages/size-guide">{{ 'footer.size_guide' | t }}</a><a href="/pages/faq">{{ 'footer.faq' | t }}</a><a href="/pages/contact">{{ 'footer.contact' | t }}</a>{% if shop.customer_accounts_enabled %}<a href="{{ routes.account_url }}">{{ 'footer.orders' | t }}</a>{% endif %}</div>
     <div><p class="footer-title">{{ section.settings.newsletter_heading }}</p>{% form 'customer', class: 'footer-form' %}<input type="hidden" name="contact[tags]" value="newsletter"><label class="visually-hidden" for="FooterEmail">{{ 'newsletter.email' | t }}</label><input id="FooterEmail" type="email" name="contact[email]" placeholder="{{ 'newsletter.email' | t }}" required><button type="submit" aria-label="{{ 'newsletter.submit' | t }}">→</button>{% if form.posted_successfully? %}<p>{{ 'newsletter.success' | t }}</p>{% endif %}{{ form.errors | default_errors }}{% endform %}</div>
   </div>
   <div class="footer-policies page-width">

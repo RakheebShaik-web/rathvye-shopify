@@ -1,14 +1,16 @@
 {
   "accessibility":{"skip_to_content":"Skip to content","close":"Close"},
-  "general":{"menu":"Menu","search":"Search","account":"Account","cart":"Bag","view_all":"View all","continue_shopping":"Continue shopping"},
+  "general":{"menu":"Menu","search":"Search","account":"Account","cart":"Bag","view_all":"View all","continue_shopping":"Continue shopping","home":"Home","shop":"Shop","breadcrumbs":"Breadcrumbs"},
   "settings":{"colors":"Colors","lilac":"Lilac","coffee":"Coffee brown","ink":"Ink","ivory":"Ivory"},
   "header":{"announcement":"Free shipping across India on prepaid orders"},
-  "product":{"add_to_bag":"Add to bag","sold_out":"Sold out","quantity":"Quantity","choose_options":"Choose options","size_guide":"Size guide","size_guide_intro":"Select your usual size. Exact garment measurements can be added when the collection is finalised.","size_help":"Need personal sizing help? Contact the RATHVYE team before ordering.","delivery":"Delivery","returns":"Returns and exchanges","care":"Care","secure_payments":"Secure payment methods"},
-  "cart":{"title":"Your bag","empty":"Your bag is currently empty.","checkout":"Checkout","subtotal":"Subtotal","remove":"Remove"},
+  "product":{"add_to_bag":"Add to bag","sold_out":"Sold out","quantity":"Quantity","choose_options":"Choose an option","size_guide":"Size guide","size_guide_intro":"Select your usual size. Exact garment measurements can be added when the collection is finalised.","size_help":"Need personal sizing help? Contact the RATHVYE team before ordering.","full_size_guide":"View the full size guide","delivery":"Delivery","returns":"Returns and exchanges","care":"Care","secure_payments":"Secure payment methods","secure_checkout":"Secure checkout","india_delivery":"Delivery across India","client_support":"Support before and after purchase","sale":"Sale","view_piece":"View the piece","zoom_image":"Zoom image","low_stock":"Only {{ count }} remaining","back_in_stock":"Join the back-in-stock list","notify_me":"Notify me","notify_success":"Your request has been received."},
+  "cart":{"title":"Your bag","empty":"Your bag is currently empty.","checkout":"Checkout","subtotal":"Subtotal","remove":"Remove","view_bag":"View bag","taxes_shipping":"Taxes and delivery are calculated at checkout."},
   "newsletter":{"email":"Email address","submit":"Join the list","success":"Thank you for joining us."},
-  "collection":{"empty":"No pieces have been added to this collection yet.","sort_by":"Sort by"},
+  "collection":{"empty":"No pieces have been added to this collection yet.","sort_by":"Sort by","pieces":"pieces","filter":"Filter","from":"From","to":"To","apply":"Apply filters","clear":"Clear all","no_match":"No pieces match.","adjust_filters":"Adjust your filters to continue exploring."},
   "contact":{"eyebrow":"Client services","title":"We are here to help","intro":"For sizing, product, order or collaboration enquiries, send a message and the RATHVYE team will respond as soon as possible.","name":"Name","email":"Email address","phone":"Phone number","message":"How can we help?","submit":"Send enquiry","success":"Thank you. Your message has been received."},
-  "search":{"title":"Search","placeholder":"Search the collection","submit":"Search","no_results":"No results found."},
+  "search":{"title":"Search","placeholder":"Search the collection","submit":"Search","no_results":"No results found.","products":"Products","result_count":"{{ count }} results for “{{ terms }}”"},
+  "size":{"size":"Size","bust":"Bust","waist":"Waist","hip":"Hip","measure":"How to measure","help":"Personal sizing help","contact":"Contact client services"},
+  "footer":{"client_services":"Client services","about":"About RATHVYE","size_guide":"Size guide","faq":"FAQ","contact":"Contact","orders":"Orders and tracking"},
   "password":{"title":"The first chapter is almost here","body":"Join the private list for launch access and first selection.","enter":"Enter with password"},
   "error":{"title":"This page has slipped away","body":"Return to the collection and continue exploring."}
 }

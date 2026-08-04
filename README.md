@@ -25,10 +25,21 @@ The theme is currently maintained as an unpublished Shopify preview theme. Revie
 - Shopify-hosted checkout handoff
 - Collection sorting and pagination
 - Store search
+- Predictive product search overlay
+- AJAX cart drawer with live quantity controls
+- Native collection filters for availability, options and price
+- Product image zoom and variant media switching
+- Sticky mobile Add to Bag controls
+- Related-product recommendations
+- Low-stock, sale and sold-out states
+- Back-in-stock email capture
 - Customer account link
 - Contact form
+- About RATHVYE, FAQ and size-guide pages
 - Newsletter signup
 - Dynamic Shopify policy links
+- Open Graph and product structured-data metadata
+- Keyboard focus and reduced-motion accessibility support
 - Password-protected launch page
 - Custom 404 page
 
