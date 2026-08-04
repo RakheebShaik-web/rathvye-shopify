@@ -1,119 +1,59 @@
-# RATHVYE Shopify Theme
+# RATHVYE Atelier
 
-A custom luxury-fashion Shopify theme created for **RATHVYE — Defined by Style**. The storefront combines an editorial, minimalist visual direction with Shopify-native product, cart, customer and checkout functionality.
+> A proprietary Shopify storefront for an independent luxury fashion house.
 
-## Preview
+RATHVYE Atelier is a custom-built Shopify theme shaped around restrained typography, editorial imagery and a calm, conversion-focused shopping experience. The system pairs a distinctive luxury identity with Shopify-native commerce functionality across desktop and mobile.
 
-- Storefront: [rathvye.myshopify.com](https://rathvye.myshopify.com/?preview_theme_id=188630368558)
-- Preview password: `naman`
-- Shopify theme: `RATHVYE Atelier Preview`
+## Experience
 
-The theme is currently maintained as an unpublished Shopify preview theme. Review and test it before publishing it to the live storefront.
+- Editorial storefront and collection storytelling
+- Responsive product discovery and navigation
+- Multi-option product selection with colour and size controls
+- Product imagery, secondary-image reveals and zoom
+- Predictive search and asynchronous collection filtering
+- AJAX cart drawer with complimentary-delivery progress
+- Native Shopify checkout and accelerated payment support
+- Customer accounts, newsletter and contact journeys
+- Product recommendations and availability states
+- Accessible keyboard, focus and reduced-motion behavior
+- Responsive layouts designed for contemporary mobile commerce
 
-## Included features
+## Design direction
 
-- Responsive luxury homepage for desktop and mobile
-- Editorial hero and collection storytelling sections
-- Product and collection templates
-- Product variants, availability, quantity and pricing
-- Native Shopify Add to Bag flow
-- Accelerated checkout buttons
-- Editable delivery, returns and garment-care information
-- Size-guide interface
-- Secure payment-method display
-- Cart quantity updates, removal, order notes and subtotal
-- Shopify-hosted checkout handoff
-- Collection sorting and pagination
-- Store search
-- Predictive product search overlay
-- AJAX cart drawer with live quantity controls
-- Native collection filters for availability, options and price
-- Product image zoom and variant media switching
-- Sticky mobile Add to Bag controls
-- Related-product recommendations
-- Low-stock, sale and sold-out states
-- Back-in-stock email capture
-- Customer account link
-- Contact form
-- About RATHVYE, FAQ and size-guide pages
-- Newsletter signup
-- Dynamic Shopify policy links
-- Open Graph and product structured-data metadata
-- Keyboard focus and reduced-motion accessibility support
-- Password-protected launch page
-- Custom 404 page
+The visual language balances expressive serif typography with a quiet interface system, warm neutral surfaces and intentionally paced motion. Components remain minimal so that garment photography and product detail carry the experience.
 
-## Project structure
+## Architecture
 
 ```text
-assets/       Brand and editorial imagery
-config/       Shopify theme settings
-layout/       Storefront and password layouts
-locales/      Theme translations
-preview/      Standalone local design preview
-sections/     Reusable Shopify storefront sections
-snippets/     Shared styles and scripts
-templates/    Shopify JSON page templates
+assets/       Theme assets and editorial media
+config/       Merchant-configurable theme settings
+layout/       Shopify document layouts
+locales/      Storefront translations
+sections/     Modular storefront sections
+snippets/     Shared Liquid, styles and interactions
+templates/    Shopify JSON templates
 ```
 
-## Install on Shopify
+The theme uses Shopify Liquid, native section schemas, the Section Rendering API and Shopify cart endpoints. Commerce, checkout, inventory and customer information remain managed by Shopify.
 
-### Upload the packaged theme
+## Quality standards
 
-1. Download `rathvye-launch-ready-theme.zip`.
-2. Open Shopify Admin.
-3. Go to **Online Store → Themes**.
-4. Select **Add theme → Upload zip file**.
-5. Upload the ZIP and preview the theme.
-6. Do not publish until the catalogue, policies, shipping, tax and payment settings have been reviewed.
+- Shopify-native and merchant editable
+- Progressive enhancement without framework dependencies
+- Semantic Liquid and accessible interaction states
+- Responsive behavior across common viewport sizes
+- Performance-conscious responsive imagery
+- Graceful reduced-motion support
+- Unpublished-theme validation before production release
 
-### Upload the source with Shopify CLI
+## Development
 
-Install and authenticate the official Shopify CLI, then run:
+This repository contains client-specific design, source code and brand material. Access, deployment details, store identifiers and operational credentials are intentionally excluded from this document.
 
-```bash
-shopify theme push --store rathvye.myshopify.com --unpublished
-```
+Development changes should be reviewed in an unpublished Shopify theme and validated across product selection, collection filtering, cart operations and checkout handoff before release.
 
-Always target an unpublished theme during development.
+## Ownership
 
-## Local static preview
+Private client project. All source code, visual assets and brand materials are proprietary and confidential. No permission is granted to copy, redistribute, sublicense or reuse any part of this repository without written authorization from the rights holder.
 
-The `preview` folder provides a lightweight design preview. From the project root, serve the folder with any static HTTP server and open `/preview/` in a browser.
-
-The Shopify Liquid theme itself must run through Shopify to provide real product, cart, customer and checkout data.
-
-## Launch requirements
-
-The theme code is ready for real commerce, but the merchant must provide or configure:
-
-- Product names, descriptions and prices
-- Product photography
-- Sizes, variants, SKUs and inventory
-- Exact garment measurements
-- Shipping zones, rates and delivery estimates
-- Confirmed return and exchange rules
-- Privacy, refund, shipping and terms-of-service policies
-- GST and tax configuration
-- Business identity and banking information
-- Shopify Payments or another supported payment provider
-- A complete test order, cancellation and refund check
-
-Never use invented legal, tax, banking, inventory or pricing information on the live store.
-
-## Development workflow
-
-1. Make changes in the appropriate Liquid section, template or snippet.
-2. Validate Liquid and JSON before uploading.
-3. Push changes to the unpublished Shopify preview theme.
-4. Test desktop and mobile layouts.
-5. Test product selection, cart updates and Shopify checkout with a real test product.
-6. Commit the validated source to GitHub.
-
-## Repository
-
-[github.com/RakheebShaik-web/rathvye-shopify-](https://github.com/RakheebShaik-web/rathvye-shopify-)
-
-## License
-
-This project contains custom brand assets and client-specific design work. All rights are reserved unless the repository owner provides a separate license.
+© RATHVYE. All rights reserved.
