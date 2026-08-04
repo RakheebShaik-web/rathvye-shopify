@@ -1,0 +1,8 @@
+<section class="assurances"><div class="assurances__inner page-width">{% for block in section.blocks %}<div class="assurance" {{ block.shopify_attributes }}><span>0{{ forloop.index }}</span><h3>{{ block.settings.heading }}</h3><p>{{ block.settings.text }}</p></div>{% endfor %}</div></section>
+{% stylesheet %}
+  .assurances{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--lilac) 24%,var(--ivory))}.assurances__inner{display:grid;grid-template-columns:repeat(4,1fr)}.assurance{padding:clamp(2rem,4vw,4rem);border-right:1px solid var(--line)}.assurance:first-child{border-left:1px solid var(--line)}.assurance span{display:block;margin-bottom:2.5rem;font-size:.58rem;letter-spacing:.15em}.assurance h3{margin:0 0 .55rem;font-family:Georgia,serif;font-size:1.35rem;font-weight:400}.assurance p{margin:0;max-width:24ch;font-size:.78rem;line-height:1.6;color:color-mix(in srgb,var(--ink) 72%,transparent)}
+  @media(max-width:899px){.assurances__inner{grid-template-columns:1fr 1fr}.assurance:nth-child(odd){border-left:1px solid var(--line)}.assurance{border-bottom:1px solid var(--line)}}@media(max-width:520px){.assurances__inner{grid-template-columns:1fr}.assurance{border-left:1px solid var(--line)}.assurance span{margin-bottom:1.25rem}}
+{% endstylesheet %}
+{% schema %}
+{"name":"Service assurances","settings":[],"blocks":[{"type":"item","name":"Assurance","settings":[{"type":"text","id":"heading","label":"Heading","default":"Complimentary delivery"},{"type":"textarea","id":"text","label":"Text","default":"On prepaid orders across India."}]}],"max_blocks":4,"presets":[{"name":"Service assurances","blocks":[{"type":"item"},{"type":"item"},{"type":"item"},{"type":"item"}]}]}
+{% endschema %}

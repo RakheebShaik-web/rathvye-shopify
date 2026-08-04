@@ -1,0 +1,6 @@
+{% doc %}
+Renders the global RATHVYE theme interactions.
+{% enddoc %}
+<script>
+  (()=>{const toggle=document.querySelector('[data-menu-toggle]');const panel=document.querySelector('[data-mobile-menu]');if(toggle&&panel){toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));panel.hidden=open;document.body.classList.toggle('menu-open',!open)})}const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.dataset.visible='true';observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el))})();
+</script>

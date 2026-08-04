@@ -1,0 +1,12 @@
+<section class="story" style="--story-bg:{{ section.settings.background }};--story-text:{{ section.settings.text_color }}">
+  <div class="story-media">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1600 | image_tag: widths: '600,900,1200,1600', loading: 'lazy', alt: section.settings.image.alt }}{% else %}{{ 'lifestyle-2' | placeholder_svg_tag }}{% endif %}</div>
+  <div class="story-copy" data-reveal><p class="eyebrow">{{ section.settings.eyebrow }}</p><h2 class="display">{{ section.settings.heading }}</h2><p>{{ section.settings.text }}</p>{% if section.settings.button_label != blank %}<a class="button button--light" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>{% endif %}</div>
+</section>
+{% stylesheet %}
+  .button{color:inherit}
+  .story{display:grid;grid-template-columns:1.15fr .85fr;background:var(--story-bg);color:var(--story-text)}.story-media{min-height:720px}.story-media img,.story-media svg{width:100%;height:100%;object-fit:cover}.story-copy{align-self:center;padding:clamp(3rem,8vw,9rem);opacity:0;transform:translateY(24px);transition:1s var(--ease)}.story-copy[data-visible=true]{opacity:1;transform:none}.story-copy .display{font-size:clamp(3rem,6vw,6.5rem);margin:.3rem 0 1.5rem}.story-copy>p:not(.eyebrow){max-width:38ch;margin-bottom:2rem}
+  @media(max-width:767px){.story{grid-template-columns:1fr}.story-media{min-height:65dvh}.story-copy{padding:4rem 1.5rem}}
+{% endstylesheet %}
+{% schema %}
+{"name":"Image story","settings":[{"type":"image_picker","id":"image","label":"Image"},{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Inside the atelier"},{"type":"textarea","id":"heading","label":"Heading","default":"Detail changes everything."},{"type":"textarea","id":"text","label":"Text","default":"From the first line to the final finish, every decision is made to give the silhouette clarity and character."},{"type":"text","id":"button_label","label":"Button label","default":"Our approach"},{"type":"url","id":"button_link","label":"Button link"},{"type":"color","id":"background","label":"Background","default":"#4b3621"},{"type":"color","id":"text_color","label":"Text","default":"#f4f0e8"}],"presets":[{"name":"Image story"}]}
+{% endschema %}

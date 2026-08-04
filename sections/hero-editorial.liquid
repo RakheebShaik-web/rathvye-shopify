@@ -1,0 +1,22 @@
+<section class="hero hero--luxury" style="--hero-bg:{{ section.settings.background }};--hero-text:{{ section.settings.text_color }}">
+  <div class="hero-media">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 2200 | image_tag: widths: '600,900,1200,1600,2200', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image.alt }}{% else %}{{ 'lifestyle-1' | placeholder_svg_tag }}{% endif %}</div>
+  <div class="hero-shade"></div>
+  <div class="hero-copy" data-reveal>
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="display">{{ section.settings.heading }}</h1>
+    <p class="hero-text">{{ section.settings.text }}</p>
+    {% if section.settings.button_label != blank %}<a class="button button--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>{% endif %}
+  </div>
+  <div class="hero-index" aria-hidden="true"><span>01</span><i></i><span>RATHVYE</span></div>
+</section>
+{% stylesheet %}
+  .hero--luxury{position:relative;isolation:isolate;display:block;min-height:min(880px,calc(100dvh - 90px));overflow:hidden;background:var(--hero-bg);color:var(--hero-text)}.hero--luxury .button{color:var(--coffee)}.hero--luxury .button:hover{color:#fff}
+  .hero--luxury .hero-media,.hero--luxury .hero-shade{position:absolute;inset:0}.hero--luxury .hero-media{z-index:-2;min-height:0}.hero--luxury .hero-media img,.hero--luxury .hero-media svg{width:100%;height:100%;object-fit:cover;object-position:center 25%;transition:transform 1.4s var(--ease)}.hero--luxury:hover .hero-media img{transform:scale(1.012)}
+  .hero--luxury .hero-shade{z-index:-1;background:linear-gradient(90deg,rgba(24,15,18,.62),rgba(24,15,18,.1) 62%),linear-gradient(0deg,rgba(16,11,13,.38),transparent 45%)}
+  .hero--luxury .hero-copy{position:absolute;left:clamp(1.5rem,5vw,5rem);bottom:clamp(4.5rem,9vw,8.5rem);width:min(650px,calc(100% - 3rem));padding:0;color:#fff}.hero--luxury .hero-copy .eyebrow{margin-bottom:1.2rem}.hero--luxury .hero-copy .display{max-width:9ch;margin:0 0 1.4rem;font-size:clamp(4rem,7.2vw,7.6rem);line-height:.88;color:inherit}.hero--luxury .hero-text{max-width:36ch;margin-bottom:2rem;font-family:Georgia,serif;font-size:clamp(1rem,1.4vw,1.25rem);line-height:1.5}
+  .hero--luxury .hero-index{position:absolute;right:clamp(1.5rem,4vw,4rem);bottom:2rem;display:flex;align-items:center;gap:.8rem;color:#fff;text-transform:uppercase;letter-spacing:.17em;font-size:.55rem}.hero--luxury .hero-index i{width:60px;height:1px;background:rgba(255,255,255,.6)}
+  @media(max-width:767px){.hero--luxury{min-height:calc(100svh - 74px)}.hero--luxury .hero-media img{object-position:57% center}.hero--luxury .hero-shade{background:linear-gradient(0deg,rgba(20,12,17,.72),transparent 67%)}.hero--luxury .hero-copy{left:1.25rem;bottom:5.2rem;width:calc(100% - 2.5rem)}.hero--luxury .hero-copy .display{max-width:100%;font-size:clamp(3.15rem,15vw,4.35rem);letter-spacing:-.055em}.hero--luxury .hero-text{max-width:29ch}.hero--luxury .hero-index{right:1.25rem;bottom:1.5rem}}
+{% endstylesheet %}
+{% schema %}
+{"name":"Editorial hero","settings":[{"type":"image_picker","id":"image","label":"Image"},{"type":"text","id":"eyebrow","label":"Eyebrow","default":"New chapter · 2026"},{"type":"textarea","id":"heading","label":"Heading","default":"Made to be remembered."},{"type":"textarea","id":"text","label":"Text","default":"Considered silhouettes, precise details and a confident use of colour."},{"type":"text","id":"button_label","label":"Button label","default":"Shop the collection"},{"type":"url","id":"button_link","label":"Button link"},{"type":"select","id":"layout","label":"Layout","options":[{"value":"image_right","label":"Image right"},{"value":"image_left","label":"Image left"}],"default":"image_right"},{"type":"color","id":"background","label":"Background","default":"#c8b4d9"},{"type":"color","id":"text_color","label":"Text","default":"#4b3621"}],"presets":[{"name":"Editorial hero"}]}
+{% endschema %}

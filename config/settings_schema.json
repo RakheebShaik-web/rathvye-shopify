@@ -1,0 +1,19 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "RATHVYE Atelier",
+    "theme_version": "1.0.0",
+    "theme_author": "RATHVYE",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "t:settings.colors",
+    "settings": [
+      {"type":"color","id":"color_lilac","label":"t:settings.lilac","default":"#c8b4d9"},
+      {"type":"color","id":"color_coffee","label":"t:settings.coffee","default":"#4b3621"},
+      {"type":"color","id":"color_ink","label":"t:settings.ink","default":"#211d19"},
+      {"type":"color","id":"color_ivory","label":"t:settings.ivory","default":"#f4f0e8"}
+    ]
+  }
+]

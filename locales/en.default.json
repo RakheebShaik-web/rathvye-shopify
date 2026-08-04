@@ -1,0 +1,14 @@
+{
+  "accessibility":{"skip_to_content":"Skip to content","close":"Close"},
+  "general":{"menu":"Menu","search":"Search","account":"Account","cart":"Bag","view_all":"View all","continue_shopping":"Continue shopping"},
+  "settings":{"colors":"Colors","lilac":"Lilac","coffee":"Coffee brown","ink":"Ink","ivory":"Ivory"},
+  "header":{"announcement":"Free shipping across India on prepaid orders"},
+  "product":{"add_to_bag":"Add to bag","sold_out":"Sold out","quantity":"Quantity","choose_options":"Choose options","size_guide":"Size guide","size_guide_intro":"Select your usual size. Exact garment measurements can be added when the collection is finalised.","size_help":"Need personal sizing help? Contact the RATHVYE team before ordering.","delivery":"Delivery","returns":"Returns and exchanges","care":"Care","secure_payments":"Secure payment methods"},
+  "cart":{"title":"Your bag","empty":"Your bag is currently empty.","checkout":"Checkout","subtotal":"Subtotal","remove":"Remove"},
+  "newsletter":{"email":"Email address","submit":"Join the list","success":"Thank you for joining us."},
+  "collection":{"empty":"No pieces have been added to this collection yet.","sort_by":"Sort by"},
+  "contact":{"eyebrow":"Client services","title":"We are here to help","intro":"For sizing, product, order or collaboration enquiries, send a message and the RATHVYE team will respond as soon as possible.","name":"Name","email":"Email address","phone":"Phone number","message":"How can we help?","submit":"Send enquiry","success":"Thank you. Your message has been received."},
+  "search":{"title":"Search","placeholder":"Search the collection","submit":"Search","no_results":"No results found."},
+  "password":{"title":"The first chapter is almost here","body":"Join the private list for launch access and first selection.","enter":"Enter with password"},
+  "error":{"title":"This page has slipped away","body":"Return to the collection and continue exploring."}
+}

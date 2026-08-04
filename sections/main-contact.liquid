@@ -1,0 +1,14 @@
+<section class="contact page-width">
+  <header><p>{{ 'contact.eyebrow' | t }}</p><h1 class="display">{{ 'contact.title' | t }}</h1><p>{{ 'contact.intro' | t }}</p></header>
+  {% form 'contact', class: 'contact-form' %}
+    {% if form.posted_successfully? %}<p class="contact-success" role="status">{{ 'contact.success' | t }}</p>{% endif %}
+    {{ form.errors | default_errors }}
+    <div class="field"><label for="ContactName">{{ 'contact.name' | t }}</label><input id="ContactName" type="text" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" autocomplete="name" required></div>
+    <div class="field"><label for="ContactEmail">{{ 'contact.email' | t }}</label><input id="ContactEmail" type="email" name="contact[email]" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" autocomplete="email" required></div>
+    <div class="field"><label for="ContactPhone">{{ 'contact.phone' | t }}</label><input id="ContactPhone" type="tel" name="contact[phone]" value="{{ form.phone }}" autocomplete="tel"></div>
+    <div class="field field-wide"><label for="ContactMessage">{{ 'contact.message' | t }}</label><textarea id="ContactMessage" name="contact[body]" rows="6" required>{{ form.body }}</textarea></div>
+    <button class="field-wide" type="submit">{{ 'contact.submit' | t }}</button>
+  {% endform %}
+</section>
+{% stylesheet %}.contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(3rem,9vw,10rem);padding-block:clamp(4rem,9vw,9rem)}.contact header{max-width:36rem}.contact .display{font-size:clamp(4rem,8vw,8rem);line-height:.86;margin:.5rem 0 2rem}.contact header>p:last-child{max-width:42ch;line-height:1.7}.contact-form{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-content:start}.contact-form .field{display:grid;gap:.5rem}.contact-form label{text-transform:uppercase;letter-spacing:.14em;font-size:.62rem}.contact-form input,.contact-form textarea{border:0;border-bottom:1px solid var(--coffee);border-radius:0;background:transparent;padding:.85rem 0;color:var(--ink);resize:vertical}.field-wide,.contact-success,.contact-form .errors{grid-column:1/-1}.contact-success{padding:1rem;border:1px solid var(--line)}@media(max-width:767px){.contact{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.contact-form .field{grid-column:1}}{% endstylesheet %}
+{% schema %}{"name":"Main contact","settings":[]}{% endschema %}
