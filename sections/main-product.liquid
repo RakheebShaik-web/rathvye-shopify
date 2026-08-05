@@ -1,6 +1,6 @@
 <nav class="breadcrumbs page-width" aria-label="{{ 'general.breadcrumbs' | t }}"><a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span aria-hidden="true">/</span><a href="{{ routes.all_products_collection_url }}">{{ 'general.shop' | t }}</a><span aria-hidden="true">/</span><span>{{ product.title }}</span></nav>
 <section class="product page-width" data-product-section>
-  <div class="product-gallery" data-product-gallery>{% for media in product.media %}<button type="button" class="product-media" data-product-media="{{ media.id }}" data-zoom-src="{{ media.preview_image | image_url: width: 2000 }}" aria-label="{{ 'product.zoom_image' | t }} {{ forloop.index }}">{{ media.preview_image | image_url: width: 1600 | image_tag: widths: '500,800,1100,1400,1600', loading: 'lazy', alt: media.alt }}</button>{% else %}{{ 'product-apparel-1' | placeholder_svg_tag }}{% endfor %}</div>
+  <div class="product-gallery{% if product.media.size == 1 %} product-gallery--single{% endif %}" data-product-gallery>{% for media in product.media %}<button type="button" class="product-media" data-product-media="{{ media.id }}" data-zoom-src="{{ media.preview_image | image_url: width: 2000 }}" aria-label="{{ 'product.zoom_image' | t }} {{ forloop.index }}">{{ media.preview_image | image_url: width: 1600 | image_tag: widths: '500,800,1100,1400,1600', loading: 'lazy', alt: media.alt }}</button>{% else %}{{ 'product-apparel-1' | placeholder_svg_tag }}{% endfor %}</div>
   <div class="product-info">
     <p class="eyebrow">{{ product.vendor | default: shop.name }}</p><h1 class="display">{{ product.title }}</h1>
     <p class="product-price" data-product-price>{% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %} {{ product.selected_or_first_available_variant.price | money }}</p>
@@ -44,6 +44,21 @@
 .product .button{color:var(--ivory)}.product .button:hover{color:var(--coffee)}
 @media(max-width:767px){.product .button:active{background:transparent;color:var(--coffee);transform:scale(.985)}.sticky-purchase{padding-bottom:max(.7rem,env(safe-area-inset-bottom));-webkit-backdrop-filter:blur(18px) saturate(115%);backdrop-filter:blur(18px) saturate(115%)}.variant-option__values{gap:.45rem}.variant-pill{min-width:44px;min-height:40px;padding:.55rem .7rem}}
 {% endstylesheet %}
+<style>
+  @media(min-width:768px){
+    .product-gallery--single{position:sticky;top:8rem;align-self:start;grid-template-columns:1fr;max-height:calc(100dvh - 10rem)}
+    .product-gallery--single .product-media{aspect-ratio:auto;height:calc(100dvh - 10rem);min-height:620px;max-height:880px;background:#ded5cc}
+    .product-gallery--single .product-media img{object-fit:contain;object-position:center top}
+  }
+  .product-details,.product-details details{display:block;width:100%}
+  .product-details summary{width:100%}
+  .product-details summary span{margin-left:auto}
+  @media(max-width:767px){
+    .product-gallery--single{position:static;max-height:none}
+    .product-gallery--single .product-media{height:auto;min-height:0;aspect-ratio:3/4}
+    .product-gallery--single .product-media img{object-fit:cover}
+  }
+</style>
 {% javascript %}
 document.querySelectorAll('[data-product-section]').forEach(section=>{
   const picker=section.querySelector('[data-variant-picker]');
