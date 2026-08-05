@@ -1,0 +1,18 @@
+<section class="wishlist-page page-width">
+  <header class="wishlist-page__header">
+    <p class="eyebrow">Your private edit</p>
+    <h1 class="display">Wishlist</h1>
+    <p>Pieces saved on this device, ready when you are.</p>
+  </header>
+  <div class="saved-products" data-wishlist-grid hidden></div>
+  <div class="wishlist-empty" data-wishlist-empty>
+    <p class="eyebrow">Nothing saved yet</p>
+    <h2 class="display">Start your edit.</h2>
+    <p>Use the heart on any product to keep it here.</p>
+    <a class="button" href="{{ routes.all_products_collection_url }}">Explore the collection</a>
+  </div>
+</section>
+{% stylesheet %}
+  .wishlist-page{padding-block:clamp(4rem,8vw,8rem)}.wishlist-page__header{max-width:780px;margin-bottom:clamp(3rem,6vw,6rem)}.wishlist-page__header .display{margin:.25rem 0 1rem;font-size:clamp(4rem,9vw,8rem)}.wishlist-page__header>p:last-child{max-width:42ch}.saved-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2.75rem 1.25rem}.saved-product{position:relative;min-width:0}.saved-product__media{aspect-ratio:3/4;overflow:hidden;background:var(--lilac)}.saved-product__media img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform .7s var(--ease)}.saved-product:hover .saved-product__media img{transform:scale(1.02)}.saved-product__meta{padding-top:.8rem}.saved-product__meta h3,.saved-product__meta p{margin:0;font-size:.72rem;font-weight:400}.saved-product__meta h3{text-transform:uppercase;letter-spacing:.07em}.saved-product__meta p{margin-top:.25rem;font-variant-numeric:tabular-nums}.saved-product>button{margin-top:.7rem;padding:.2rem 0;border:0;border-bottom:1px solid;background:transparent;text-transform:uppercase;letter-spacing:.1em;font-size:.55rem;cursor:pointer}.wishlist-empty{padding:clamp(5rem,10vw,9rem) 1rem;text-align:center;border-block:1px solid var(--line)}.wishlist-empty .display{margin:.25rem 0 1rem;font-size:clamp(3rem,7vw,6rem)}.wishlist-empty>p:not(.eyebrow){margin:0 auto 2rem;max-width:36ch}@media(max-width:899px){.saved-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:2.25rem .75rem}}@media(max-width:520px){.wishlist-page{padding-top:3rem}.wishlist-page__header .display{font-size:clamp(3.5rem,18vw,5rem)}.saved-product__meta h3{font-size:.65rem}}
+{% endstylesheet %}
+{% schema %}{"name":"Wishlist","settings":[],"presets":[{"name":"Wishlist"}]}{% endschema %}

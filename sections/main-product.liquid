@@ -7,6 +7,7 @@
   <div class="product-info">
     <p class="eyebrow">{{ product.vendor | default: shop.name }}</p><h1 class="display">{{ product.title }}</h1>
     <p class="product-price" data-product-price>{% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %} {{ product.selected_or_first_available_variant.price | money }}</p>
+    <button class="product-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ product.handle }}" data-product-title="{{ product.title | escape }}" data-product-url="{{ product.url }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% endif %}" data-product-price="{{ product.price | money | escape }}" aria-label="Save {{ product.title | escape }} to wishlist" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.8a5.4 5.4 0 0 0-7.7 0L12 5.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 21l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></svg><span data-wishlist-label>Save to wishlist</span></button>
     {% assign current_variant = product.selected_or_first_available_variant %}
     {% if current_variant.inventory_management and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= section.settings.low_stock_threshold %}<p class="low-stock" data-low-stock>{{ 'product.low_stock' | t: count: current_variant.inventory_quantity }}</p>{% endif %}
     {% form 'product', product, class: 'product-form' %}
@@ -59,6 +60,8 @@
   .product-details summary span{margin-left:auto}
   .product-gallery-wrap{position:relative;min-width:0}
   .product-gallery-count{display:none}
+  .product-wishlist{display:inline-flex;align-items:center;gap:.6rem;margin:0 0 1.35rem;padding:.2rem 0;border:0;border-bottom:1px solid transparent;background:transparent;color:var(--ink);text-transform:uppercase;letter-spacing:.12em;font-size:.6rem;cursor:pointer;transition:border-color .25s ease}
+  .product-wishlist:hover{border-bottom-color:currentColor}.product-wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.product-wishlist[aria-pressed=true] svg{fill:currentColor}.product-wishlist[aria-pressed=true]{font-weight:600}
   @media(max-width:767px){
     .product-gallery--single{position:static;max-height:none}
     .product-gallery--single .product-media{height:auto;min-height:0;aspect-ratio:3/4}

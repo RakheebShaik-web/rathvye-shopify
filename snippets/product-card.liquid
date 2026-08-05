@@ -13,6 +13,7 @@ Renders a responsive product card with an editorial image reveal.
     </div>
     <div class="catalog-card__meta">{% if show_vendor %}<small>{{ product.vendor }}</small>{% endif %}<h3>{{ product.title }}</h3><p>{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s> {% endif %}{{ product.price | money }}</p></div>
   </a>
+  <button class="catalog-card__wishlist" type="button" data-wishlist-toggle data-product-handle="{{ product.handle }}" data-product-title="{{ product.title | escape }}" data-product-url="{{ product.url }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% endif %}" data-product-price="{{ product.price | money | escape }}" aria-label="Save {{ product.title | escape }} to wishlist" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.8a5.4 5.4 0 0 0-7.7 0L12 5.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 21l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></svg></button>
   {% assign quick_option = product.options_with_values | first %}
   {% if product.options.size == 1 and quick_option.name contains 'Size' and product.available %}
     <div class="catalog-card__quick" aria-label="Quick add {{ product.title | escape }}">
@@ -36,6 +37,8 @@ Renders a responsive product card with an editorial image reveal.
 {% endstylesheet %}
 <style>
   .catalog-card__mobile-cta{display:none}
+  .catalog-card__wishlist{position:absolute;top:.75rem;right:.75rem;z-index:3;display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(255,255,255,.62);border-radius:50%;background:color-mix(in srgb,var(--ivory) 80%,transparent);color:var(--coffee);cursor:pointer;backdrop-filter:blur(12px);transition:transform .25s var(--ease),background .25s var(--ease),color .25s var(--ease)}
+  .catalog-card__wishlist:hover{transform:scale(1.06)}.catalog-card__wishlist:active{transform:scale(.96)}.catalog-card__wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.catalog-card__wishlist[aria-pressed=true]{background:var(--coffee);color:var(--ivory)}.catalog-card__wishlist[aria-pressed=true] svg{fill:currentColor}
   @media(max-width:767px){
     .catalog-card__mobile-cta{display:flex;align-items:center;justify-content:space-between;min-height:42px;margin-top:.75rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:.57rem;font-weight:600}
     .catalog-card__mobile-cta span{font-size:.9rem}
