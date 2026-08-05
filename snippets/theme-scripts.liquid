@@ -1,38 +1,40 @@
-{% doc %}
-Renders the global RATHVYE theme interactions.
-{% enddoc %}
+{% doc %}Renders the global RATHVYE theme interactions.{% enddoc %}
 <script>
-  (()=>{
-    const body=document.body;
-    const escapeHtml=value=>{const node=document.createElement('div');node.textContent=value||'';return node.innerHTML};
-    const money=value=>new Intl.NumberFormat(document.documentElement.lang||'en-IN',{style:'currency',currency:(window.Shopify&&Shopify.currency&&Shopify.currency.active)||'INR'}).format(value/100);
-    const toggle=document.querySelector('[data-menu-toggle]');
-    const panel=document.querySelector('[data-mobile-menu]');
-    if(toggle&&panel)toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));panel.hidden=open;body.classList.toggle('menu-open',!open)});
-    if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.dataset.visible='true';observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el))}else document.querySelectorAll('[data-reveal]').forEach(el=>el.dataset.visible='true');
-    const search=document.querySelector('[data-search-overlay]');
-    const searchInput=document.querySelector('[data-predictive-input]');
-    const searchResults=document.querySelector('[data-predictive-results]');
-    let searchTimer;
-    const openSearch=()=>{if(!search)return;search.hidden=false;body.classList.add('menu-open');setTimeout(()=>searchInput&&searchInput.focus(),40)};
-    const closeSearch=()=>{if(!search)return;search.hidden=true;body.classList.remove('menu-open')};
-    document.querySelectorAll('[data-search-open]').forEach(button=>button.addEventListener('click',openSearch));
-    document.querySelectorAll('[data-search-close]').forEach(button=>button.addEventListener('click',closeSearch));
-    if(searchInput&&searchResults)searchInput.addEventListener('input',()=>{clearTimeout(searchTimer);const term=searchInput.value.trim();if(term.length<2){searchResults.innerHTML='';return}searchTimer=setTimeout(async()=>{searchResults.setAttribute('aria-busy','true');try{const response=await fetch(`/search/suggest?q=${encodeURIComponent(term)}&resources[type]=product&resources[limit]=6&section_id=predictive-search`);searchResults.innerHTML=response.ok?await response.text():''}finally{searchResults.removeAttribute('aria-busy')}},180)});
-    const drawer=document.querySelector('[data-cart-drawer]');
-    const itemsNode=document.querySelector('[data-cart-items]');
-    const emptyNode=document.querySelector('[data-cart-empty]');
-    const footerNode=document.querySelector('[data-cart-footer]');
-    const totalNode=document.querySelector('[data-cart-total]');
-    const updateCounts=count=>document.querySelectorAll('[data-cart-count]').forEach(node=>{node.textContent=`(${count})`;node.setAttribute('aria-label',`${count} items`)});
-    const renderCart=cart=>{if(!drawer||!itemsNode)return;updateCounts(cart.item_count);emptyNode.hidden=cart.item_count>0;footerNode.hidden=cart.item_count===0;totalNode.textContent=money(cart.total_price);itemsNode.innerHTML=cart.items.map((item,index)=>`<article class="cart-line"><a href="${item.url}">${item.image?`<img src="${item.image}" alt="${escapeHtml(item.product_title)}" width="164" height="210">`:''}</a><div><h3><a href="${item.url}">${escapeHtml(item.product_title)}</a></h3>${item.variant_title?`<small>${escapeHtml(item.variant_title)}</small>`:''}<p>${money(item.final_line_price)}</p><div class="cart-line__qty"><button type="button" data-cart-change="${index+1}" data-quantity="${Math.max(0,item.quantity-1)}" aria-label="Decrease quantity">−</button><span>${item.quantity}</span><button type="button" data-cart-change="${index+1}" data-quantity="${item.quantity+1}" aria-label="Increase quantity">+</button></div></div><button class="cart-line__remove" type="button" data-cart-change="${index+1}" data-quantity="0">Remove</button></article>`).join('')};
-    const getCart=async()=>{const response=await fetch('/cart.js',{headers:{Accept:'application/json'}});const cart=await response.json();renderCart(cart);return cart};
-    const openCart=async()=>{if(!drawer)return;drawer.setAttribute('aria-hidden','false');body.classList.add('menu-open');await getCart();drawer.querySelector('[data-cart-close]')?.focus()};
-    const closeCart=()=>{if(!drawer)return;drawer.setAttribute('aria-hidden','true');body.classList.remove('menu-open')};
-    document.querySelectorAll('[data-cart-open]').forEach(button=>button.addEventListener('click',openCart));
-    document.querySelectorAll('[data-cart-close]').forEach(button=>button.addEventListener('click',closeCart));
-    drawer?.addEventListener('click',async event=>{const button=event.target.closest('[data-cart-change]');if(!button)return;drawer.classList.add('cart-loading');try{const response=await fetch('/cart/change.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({line:Number(button.dataset.cartChange),quantity:Number(button.dataset.quantity)})});renderCart(await response.json())}finally{drawer.classList.remove('cart-loading')}});
-    document.addEventListener('submit',async event=>{const form=event.target.closest('form[action*="/cart/add"]');if(!form)return;event.preventDefault();const submit=form.querySelector('[type=submit]');if(submit)submit.disabled=true;try{const response=await fetch('/cart/add.js',{method:'POST',headers:{Accept:'application/json'},body:new FormData(form)});if(!response.ok)throw new Error('Cart request failed');await openCart()}catch(error){const errorNode=form.querySelector('[data-product-error]');if(errorNode){errorNode.textContent='We could not add this piece. Please review your selection and try again.';errorNode.hidden=false}}finally{if(submit)submit.disabled=false}});
-    document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(search&&!search.hidden)closeSearch();if(drawer?.getAttribute('aria-hidden')==='false')closeCart()});
-  })();
+(()=>{
+  const body=document.body;
+  const escapeHtml=value=>{const node=document.createElement('div');node.textContent=value||'';return node.innerHTML};
+  const money=value=>new Intl.NumberFormat(document.documentElement.lang||'en-IN',{style:'currency',currency:(window.Shopify&&Shopify.currency&&Shopify.currency.active)||'INR'}).format(value/100);
+  const toggle=document.querySelector('[data-menu-toggle]');
+  const panel=document.querySelector('[data-mobile-menu]');
+  if(toggle&&panel)toggle.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')==='true';toggle.setAttribute('aria-expanded',String(!open));panel.hidden=open;body.classList.toggle('menu-open',!open)});
+  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.dataset.visible='true';observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('[data-reveal]').forEach(el=>observer.observe(el))}else document.querySelectorAll('[data-reveal]').forEach(el=>el.dataset.visible='true');
+
+  const search=document.querySelector('[data-search-overlay]');
+  const searchInput=document.querySelector('[data-predictive-input]');
+  const searchResults=document.querySelector('[data-predictive-results]');
+  let searchTimer;
+  const openSearch=()=>{if(!search)return;search.hidden=false;body.classList.add('menu-open');setTimeout(()=>searchInput?.focus(),40)};
+  const closeSearch=()=>{if(!search)return;search.hidden=true;body.classList.remove('menu-open')};
+  document.querySelectorAll('[data-search-open]').forEach(button=>button.addEventListener('click',openSearch));
+  document.querySelectorAll('[data-search-close]').forEach(button=>button.addEventListener('click',closeSearch));
+  if(searchInput&&searchResults)searchInput.addEventListener('input',()=>{clearTimeout(searchTimer);const term=searchInput.value.trim();if(term.length<2){searchResults.innerHTML='';return}searchTimer=setTimeout(async()=>{searchResults.setAttribute('aria-busy','true');try{const response=await fetch(`/search/suggest?q=${encodeURIComponent(term)}&resources[type]=product&resources[limit]=6&section_id=predictive-search`);searchResults.innerHTML=response.ok?await response.text():''}finally{searchResults.removeAttribute('aria-busy')}},180)});
+
+  const drawer=document.querySelector('[data-cart-drawer]');
+  const itemsNode=document.querySelector('[data-cart-items]');
+  const emptyNode=document.querySelector('[data-cart-empty]');
+  const footerNode=document.querySelector('[data-cart-footer]');
+  const totalNode=document.querySelector('[data-cart-total]');
+  const progressNode=document.querySelector('[data-shipping-progress]');
+  const updateCounts=count=>document.querySelectorAll('[data-cart-count]').forEach(node=>{node.textContent=`(${count})`;node.setAttribute('aria-label',`${count} items`)});
+  const updateShippingProgress=total=>{if(!progressNode)return;const threshold=Number(progressNode.dataset.threshold)||0;const complete=threshold>0&&total>=threshold;const percent=threshold>0?Math.min(100,Math.max(0,total/threshold*100)):100;progressNode.dataset.complete=String(complete);progressNode.querySelector('[data-shipping-bar]').style.width=`${percent}%`;progressNode.querySelector('[data-shipping-value]').textContent=`${Math.round(percent)}%`;progressNode.querySelector('[data-shipping-message]').textContent=complete?"You've unlocked Complimentary Express Delivery":`${money(Math.max(0,threshold-total))} away from complimentary delivery`};
+  const renderCart=cart=>{if(!drawer||!itemsNode)return;updateCounts(cart.item_count);updateShippingProgress(cart.total_price);emptyNode.hidden=cart.item_count>0;footerNode.hidden=cart.item_count===0;totalNode.textContent=money(cart.total_price);itemsNode.innerHTML=cart.items.map((item,index)=>`<article class="cart-line"><a href="${item.url}">${item.image?`<img src="${item.image}" alt="${escapeHtml(item.product_title)}" width="164" height="210">`:''}</a><div><h3><a href="${item.url}">${escapeHtml(item.product_title)}</a></h3>${item.variant_title?`<small>${escapeHtml(item.variant_title)}</small>`:''}<p>${money(item.final_line_price)}</p><div class="cart-line__qty"><button type="button" data-cart-change="${index+1}" data-quantity="${Math.max(0,item.quantity-1)}" aria-label="Decrease quantity">−</button><span>${item.quantity}</span><button type="button" data-cart-change="${index+1}" data-quantity="${item.quantity+1}" aria-label="Increase quantity">+</button></div></div><button class="cart-line__remove" type="button" data-cart-change="${index+1}" data-quantity="0">Remove</button></article>`).join('')};
+  const getCart=async()=>{const response=await fetch('/cart.js',{headers:{Accept:'application/json'}});if(!response.ok)throw new Error('Unable to load cart');const cart=await response.json();renderCart(cart);return cart};
+  const openCart=async()=>{if(!drawer)return;drawer.setAttribute('aria-hidden','false');body.classList.add('menu-open');await getCart();drawer.querySelector('[data-cart-close]')?.focus()};
+  const closeCart=()=>{if(!drawer)return;drawer.setAttribute('aria-hidden','true');body.classList.remove('menu-open')};
+  document.querySelectorAll('[data-cart-open]').forEach(button=>button.addEventListener('click',openCart));
+  document.querySelectorAll('[data-cart-close]').forEach(button=>button.addEventListener('click',closeCart));
+  drawer?.addEventListener('click',async event=>{const button=event.target.closest('[data-cart-change]');if(!button)return;drawer.classList.add('cart-loading');try{const response=await fetch('/cart/change.js',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({line:Number(button.dataset.cartChange),quantity:Number(button.dataset.quantity)})});if(!response.ok)throw new Error('Unable to update cart');renderCart(await response.json())}finally{drawer.classList.remove('cart-loading')}});
+  document.addEventListener('submit',async event=>{const form=event.target.closest('form[action*="/cart/add"]');if(!form)return;event.preventDefault();const submit=form.querySelector('[type=submit]');if(submit)submit.disabled=true;try{const response=await fetch('/cart/add.js',{method:'POST',headers:{Accept:'application/json'},body:new FormData(form)});if(!response.ok)throw new Error('Cart request failed');await openCart()}catch(error){const errorNode=form.querySelector('[data-product-error]');if(errorNode){errorNode.textContent='We could not add this piece. Please review your selection and try again.';errorNode.hidden=false}}finally{if(submit)submit.disabled=false}});
+  document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(search&&!search.hidden)closeSearch();if(drawer?.getAttribute('aria-hidden')==='false')closeCart()});
+})();
 </script>
