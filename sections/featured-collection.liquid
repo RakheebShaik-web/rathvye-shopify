@@ -65,7 +65,7 @@
   const centerDistance=card=>Math.abs(card.getBoundingClientRect().left+card.offsetWidth/2-innerWidth/2);
   const mark=()=>{const active=cards.reduce((best,card)=>centerDistance(card)<best.distance?{card,distance:centerDistance(card)}:best,{card:cards[0],distance:Infinity}).card;cards.forEach(card=>card.classList.toggle('is-active',card===active))};
   const measure=()=>{loopWidth=cards[originals.length].offsetLeft-cards[0].offsetLeft};
-  const tick=time=>{const delta=Math.min(time-lastTime,40);lastTime=time;if(running&&loopWidth){runway.scrollLeft+=delta*.038;if(runway.scrollLeft>=loopWidth)runway.scrollLeft-=loopWidth;mark()}frame=requestAnimationFrame(tick)};
+  const tick=time=>{const delta=Math.min(time-lastTime,40);lastTime=time;if(running&&loopWidth){runway.scrollLeft+=delta*.095;if(runway.scrollLeft>=loopWidth)runway.scrollLeft-=loopWidth;mark()}frame=requestAnimationFrame(tick)};
   const pause=()=>{running=false};const play=()=>{lastTime=performance.now();running=true};
   runway.addEventListener('pointerenter',pause);runway.addEventListener('pointerleave',play);runway.addEventListener('focusin',pause);runway.addEventListener('focusout',play);runway.addEventListener('touchstart',pause,{passive:true});runway.addEventListener('touchend',()=>setTimeout(play,900),{passive:true});addEventListener('resize',measure,{passive:true});document.addEventListener('visibilitychange',()=>{running=!document.hidden;lastTime=performance.now()});
   requestAnimationFrame(()=>{measure();mark();frame=requestAnimationFrame(tick)});
