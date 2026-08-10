@@ -4,9 +4,9 @@
       "type": "hero-editorial",
       "settings": {
         "image": "shopify://shop_images/rathvye-ivory-jacket.png",
-        "eyebrow": "RATHVYE · 2026",
-        "heading": "Made to be remembered.",
-        "text": "Considered silhouettes, precise details and a confident use of colour.",
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
         "button_label": "Shop new arrivals",
         "button_link": "shopify://collections/new-arrivals",
         "background": "#c8b4d9",
@@ -45,7 +45,7 @@
     "featured": {
       "type": "featured-collection",
       "settings": {
-        "eyebrow": "The current edit",
+        "eyebrow": "",
         "heading": "New arrivals",
         "collection": "new-arrivals",
         "products_to_show": 6,
@@ -124,5 +124,5 @@
       }
     }
   },
-  "order": ["hero", "categories", "featured", "seasonal", "story", "assurances", "newsletter"]
+  "order": ["hero", "featured"]
 }
