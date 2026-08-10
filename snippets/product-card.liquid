@@ -38,11 +38,13 @@ Renders a responsive product card with an editorial image reveal.
 <style>
   .catalog-card__mobile-cta{display:none}
   .catalog-card__wishlist{position:absolute;top:.75rem;right:.75rem;z-index:3;display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(255,255,255,.62);border-radius:50%;background:color-mix(in srgb,var(--ivory) 80%,transparent);color:var(--coffee);cursor:pointer;backdrop-filter:blur(12px);transition:transform .25s var(--ease),background .25s var(--ease),color .25s var(--ease)}
-  .catalog-card__wishlist:hover{transform:scale(1.06)}.catalog-card__wishlist:active{transform:scale(.96)}.catalog-card__wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.catalog-card__wishlist[aria-pressed=true]{background:var(--coffee);color:var(--ivory)}.catalog-card__wishlist[aria-pressed=true] svg{fill:currentColor}
+  .catalog-card__wishlist:hover{transform:scale(1.06)}.catalog-card__wishlist:active{transform:scale(.96)}.catalog-card__wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.catalog-card__wishlist[aria-pressed=true]{background:var(--coffee);color:var(--ivory)}.catalog-card__wishlist[aria-pressed=true] svg{fill:currentColor}.catalog-card__wishlist.is-celebrating{animation:wishlist-pop .52s var(--ease)}.catalog-card__wishlist.is-celebrating svg{animation:wishlist-heart .52s var(--ease)}@keyframes wishlist-pop{40%{transform:scale(1.18)}70%{transform:scale(.94)}}@keyframes wishlist-heart{45%{transform:scale(1.28) rotate(-7deg)}}
+  .catalog-card__quick{border:1px solid color-mix(in srgb,var(--coffee) 14%,transparent);border-radius:999px;box-shadow:inset 0 1px rgba(255,255,255,.7),0 12px 32px rgba(75,54,33,.1)}
   @media(max-width:767px){
     .catalog-card__mobile-cta{display:flex;align-items:center;justify-content:space-between;min-height:42px;margin-top:.75rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-transform:uppercase;letter-spacing:.11em;font-size:.57rem;font-weight:600}
     .catalog-card__mobile-cta span{font-size:.9rem}
     .catalog-card__meta h3{font-size:.68rem;line-height:1.45}
     .catalog-card__meta p{font-size:.7rem}
   }
+  @media(prefers-reduced-motion:reduce){.catalog-card__wishlist.is-celebrating,.catalog-card__wishlist.is-celebrating svg{animation:none}}
 </style>
