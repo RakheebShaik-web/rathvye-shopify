@@ -2,9 +2,9 @@
 <section class="product page-width" data-product-section>
   <div class="product-gallery-wrap{% if product.media.size == 1 %} product-gallery-wrap--single{% endif %}">
     <div class="product-gallery{% if product.media.size == 1 %} product-gallery--single{% endif %}" data-product-gallery>{% for media in product.media %}<button type="button" class="product-media" data-product-media="{{ media.id }}" data-zoom-src="{{ media.preview_image | image_url: width: 2000 }}" aria-label="{{ 'product.zoom_image' | t }} {{ forloop.index }}">{{ media.preview_image | image_url: width: 1600 | image_tag: widths: '500,800,1100,1400,1600', loading: 'lazy', alt: media.alt }}</button>{% else %}{{ 'product-apparel-1' | placeholder_svg_tag }}{% endfor %}</div>
-    {% if product.media.size > 1 %}<p class="product-gallery-count" aria-live="polite"><span data-gallery-current>1</span> / {{ product.media.size }}</p>{% endif %}
+    {% if product.media.size > 1 %}<p class="product-gallery-count" aria-live="polite"><span data-gallery-current>1</span> / {{ product.media.size }}</p><div class="product-gallery-progress" aria-hidden="true"><i data-gallery-progress style="--gallery-progress:{{ 1.0 | divided_by: product.media.size | times: 100 }}%"></i></div>{% endif %}
   </div>
-  <div class="product-info">
+  <div class="product-info" data-reveal>
     <p class="eyebrow">{{ product.vendor | default: shop.name }}</p><h1 class="display">{{ product.title }}</h1>
     <p class="product-price" data-product-price>{% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}<s>{{ product.selected_or_first_available_variant.compare_at_price | money }}</s>{% endif %} {{ product.selected_or_first_available_variant.price | money }}</p>
     <button class="product-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ product.handle }}" data-product-title="{{ product.title | escape }}" data-product-url="{{ product.url }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% endif %}" data-product-price="{{ product.price | money | escape }}" aria-label="Save {{ product.title | escape }} to wishlist" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.8a5.4 5.4 0 0 0-7.7 0L12 5.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 21l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></svg><span data-wishlist-label>Save to wishlist</span></button>
@@ -16,7 +16,7 @@
           {% for option in product.options_with_values %}
             {% assign option_name = option.name | downcase %}
             <fieldset class="variant-option" data-option-position="{{ option.position }}">
-              <legend>{{ option.name }}: <span data-option-label>{{ option.selected_value }}</span></legend>
+              <legend>{{ option.name }}: <span data-option-label>{{ option.selected_value }}</span>{% if option_name contains 'size' %}<a class="size-help-link" href="/pages/size-guide">Size guide</a>{% endif %}</legend>
               <div class="variant-option__values">
                 {% for value in option.values %}
                   <button type="button" class="variant-pill{% if option_name contains 'color' or option_name contains 'colour' %} variant-pill--swatch{% endif %}" data-option-value="{{ value | escape }}" aria-pressed="{% if option.selected_value == value %}true{% else %}false{% endif %}">{% if option_name contains 'color' or option_name contains 'colour' %}<span class="variant-swatch" style="--swatch:{{ value | escape }}" aria-hidden="true"></span>{% endif %}<span>{{ value }}</span></button>
@@ -33,8 +33,9 @@
       <button class="button product-submit" type="submit" data-add-button {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}{{ 'product.add_to_bag' | t }}{% else %}{{ 'product.sold_out' | t }}{% endif %}</button>
       {% if section.settings.show_dynamic_checkout and current_variant.available %}<div class="accelerated-checkout">{{ form | payment_button }}</div>{% endif %}
     {% endform %}
+    <form class="delivery-estimator" data-delivery-estimator novalidate><label for="DeliveryPin-{{ section.id }}">Check delivery</label><div><input id="DeliveryPin-{{ section.id }}" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit PIN code" aria-describedby="DeliveryResult-{{ section.id }}" required><button type="submit">Check</button></div><p id="DeliveryResult-{{ section.id }}" data-delivery-result aria-live="polite"></p></form>
     {% unless product.available %}{% form 'customer', class: 'back-in-stock' %}<input type="hidden" name="contact[tags]" value="back-in-stock,{{ product.handle }}"><input type="hidden" name="contact[body]" value="Back in stock request for {{ product.title | escape }}"><label for="BackInStockEmail">{{ 'product.back_in_stock' | t }}</label><div><input id="BackInStockEmail" type="email" name="contact[email]" placeholder="{{ 'newsletter.email' | t }}" required><button type="submit">{{ 'product.notify_me' | t }}</button></div>{% if form.posted_successfully? %}<p>{{ 'product.notify_success' | t }}</p>{% endif %}{{ form.errors | default_errors }}{% endform %}{% endunless %}
-    <div class="product-promises"><span>{{ 'product.secure_checkout' | t }}</span><span>{{ 'product.india_delivery' | t }}</span><span>{{ 'product.client_support' | t }}</span></div>
+    <div class="product-promises"><span><i aria-hidden="true">◇</i>{{ 'product.secure_checkout' | t }}</span><span><i aria-hidden="true">↗</i>{{ 'product.india_delivery' | t }}</span><span><i aria-hidden="true">◌</i>{{ 'product.client_support' | t }}</span></div>
     <div class="rte product-description">{{ product.description }}</div>
     <div class="product-details"><details><summary>{{ 'product.size_guide' | t }}<span>+</span></summary><div class="detail-content"><p>{{ 'product.size_guide_intro' | t }}</p><div class="size-table"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span></div><a href="/pages/size-guide">{{ 'product.full_size_guide' | t }}</a></div></details><details><summary>{{ 'product.delivery' | t }}<span>+</span></summary><div class="detail-content"><p>{{ section.settings.delivery_text }}</p></div></details><details><summary>{{ 'product.returns' | t }}<span>+</span></summary><div class="detail-content"><p>{{ section.settings.returns_text }}</p></div></details><details><summary>{{ 'product.care' | t }}<span>+</span></summary><div class="detail-content"><p>{{ section.settings.care_text }}</p></div></details></div>
     {% if shop.enabled_payment_types.size > 0 %}<div class="payment-types"><p>{{ 'product.secure_payments' | t }}</p><div>{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag }}{% endfor %}</div></div>{% endif %}
@@ -59,23 +60,31 @@
   .product-details summary{width:100%}
   .product-details summary span{margin-left:auto}
   .product-gallery-wrap{position:relative;min-width:0}
+  .product-info[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .8s var(--ease),transform .9s var(--ease)}.product-info[data-visible=true]{opacity:1;transform:none}
   .product-gallery-count{display:none}
+  .product-gallery-progress{display:none}.product-gallery-progress i{display:block;width:var(--gallery-progress);height:100%;background:var(--coffee);transition:width .55s var(--ease)}
+  .size-help-link{float:right;margin-left:1rem;color:inherit;text-decoration:underline;text-underline-offset:4px;font-size:.56rem;font-weight:400;letter-spacing:.1em}
+  .delivery-estimator{margin-top:1.2rem}.delivery-estimator>label{display:block;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.14em;font-size:.6rem}.delivery-estimator>div{display:grid;grid-template-columns:1fr auto;border:1px solid var(--line);background:color-mix(in srgb,var(--ivory) 70%,var(--lilac))}.delivery-estimator input,.delivery-estimator button{min-height:46px;border:0;background:transparent;color:var(--ink)}.delivery-estimator input{min-width:0;padding:.75rem 1rem}.delivery-estimator button{padding-inline:1rem;border-left:1px solid var(--line);text-transform:uppercase;letter-spacing:.12em;font-size:.58rem;cursor:pointer;transition:background .25s ease,color .25s ease}.delivery-estimator button:hover{background:var(--coffee);color:var(--ivory)}.delivery-estimator>p{min-height:1.3em;margin:.55rem 0 0;font-size:.66rem}.delivery-estimator[data-valid=false]>p{color:#8a2330}
+  .product-promises span{display:flex;align-items:center;gap:.6rem}.product-promises i{display:grid;place-items:center;width:22px;height:22px;border:1px solid var(--line);border-radius:50%;font-style:normal;font-size:.7rem}
   .product-wishlist{display:inline-flex;align-items:center;gap:.6rem;margin:0 0 1.35rem;padding:.2rem 0;border:0;border-bottom:1px solid transparent;background:transparent;color:var(--ink);text-transform:uppercase;letter-spacing:.12em;font-size:.6rem;cursor:pointer;transition:border-color .25s ease}
-  .product-wishlist:hover{border-bottom-color:currentColor}.product-wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.product-wishlist[aria-pressed=true] svg{fill:currentColor}.product-wishlist[aria-pressed=true]{font-weight:600}
+  .product-wishlist:hover{border-bottom-color:currentColor}.product-wishlist svg{width:18px;height:18px;fill:transparent;stroke:currentColor;stroke-width:1.4}.product-wishlist[aria-pressed=true] svg{fill:currentColor}.product-wishlist[aria-pressed=true]{font-weight:600}.product-wishlist.is-celebrating svg{animation:product-heart-pop .52s var(--ease)}@keyframes product-heart-pop{45%{transform:scale(1.3) rotate(-7deg)}}
   @media(max-width:767px){
     .product-gallery--single{position:static;max-height:none}
     .product-gallery--single .product-media{height:auto;min-height:0;aspect-ratio:3/4}
     .product-gallery--single .product-media img{object-fit:cover}
-    .product-gallery-count{position:absolute;right:.75rem;bottom:.75rem;z-index:2;display:block;margin:0;padding:.45rem .65rem;background:color-mix(in srgb,var(--ivory) 84%,transparent);border:1px solid rgba(255,255,255,.55);font-size:.58rem;letter-spacing:.12em;font-variant-numeric:tabular-nums;backdrop-filter:blur(12px)}
+    .product-gallery-count{position:absolute;right:.75rem;bottom:1.25rem;z-index:2;display:block;margin:0;padding:.45rem .65rem;background:color-mix(in srgb,var(--ivory) 84%,transparent);border:1px solid rgba(255,255,255,.55);font-size:.58rem;letter-spacing:.12em;font-variant-numeric:tabular-nums;backdrop-filter:blur(12px)}.product-gallery-progress{position:absolute;display:block;left:1rem;right:1rem;bottom:.35rem;height:2px;background:rgba(244,240,232,.55)}
+    .sticky-purchase{opacity:0;transform:translateY(100%);pointer-events:none;transition:opacity .35s var(--ease),transform .45s var(--ease)}.sticky-purchase.is-visible{opacity:1;transform:none;pointer-events:auto}
   }
+  @media(prefers-reduced-motion:reduce){.product-wishlist.is-celebrating svg{animation:none}.sticky-purchase{transition:none}}
 </style>
 {% javascript %}
 document.querySelectorAll('[data-product-section]').forEach(section=>{
   const gallery=section.querySelector('[data-product-gallery]');
   const galleryCurrent=section.querySelector('[data-gallery-current]');
+  const galleryProgress=section.querySelector('[data-gallery-progress]');
   if(gallery&&galleryCurrent){
     const media=[...gallery.querySelectorAll('[data-product-media]')];
-    const updateGalleryCount=()=>{const center=gallery.scrollLeft+gallery.clientWidth/2;let closest=0;let distance=Infinity;media.forEach((item,index)=>{const itemCenter=item.offsetLeft+item.offsetWidth/2;const nextDistance=Math.abs(itemCenter-center);if(nextDistance<distance){distance=nextDistance;closest=index}});galleryCurrent.textContent=String(closest+1)};
+    const updateGalleryCount=()=>{const center=gallery.scrollLeft+gallery.clientWidth/2;let closest=0;let distance=Infinity;media.forEach((item,index)=>{const itemCenter=item.offsetLeft+item.offsetWidth/2;const nextDistance=Math.abs(itemCenter-center);if(nextDistance<distance){distance=nextDistance;closest=index}});galleryCurrent.textContent=String(closest+1);galleryProgress?.style.setProperty('--gallery-progress',`${(closest+1)/media.length*100}%`)};
     gallery.addEventListener('scroll',updateGalleryCount,{passive:true});
     addEventListener('resize',updateGalleryCount,{passive:true});
   }
@@ -116,6 +125,9 @@ document.querySelectorAll('[data-product-section]').forEach(section=>{
     refresh({scroll:false});
   }
   stickyButton?.addEventListener('click',()=>addButton.click());
+  const sticky=document.querySelector('[data-sticky-purchase]');
+  if(sticky&&addButton&&'IntersectionObserver' in window){const stickyObserver=new IntersectionObserver(entries=>sticky.classList.toggle('is-visible',!entries[0].isIntersecting),{threshold:.15});stickyObserver.observe(addButton)}else sticky?.classList.add('is-visible');
+  section.querySelector('[data-delivery-estimator]')?.addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget;const input=form.querySelector('input');const result=form.querySelector('[data-delivery-result]');const valid=/^[1-9][0-9]{5}$/.test(input.value.trim());form.dataset.valid=String(valid);result.textContent=valid?'Estimated delivery in 3–6 business days. Final timing is confirmed at checkout.':'Enter a valid 6-digit Indian PIN code.';if(!valid)input.focus()});
 });
 const dialog=document.querySelector('[data-zoom-dialog]');
 document.querySelectorAll('[data-zoom-src]').forEach(button=>button.addEventListener('click',()=>{if(!dialog)return;dialog.querySelector('img').src=button.dataset.zoomSrc;dialog.showModal()}));
