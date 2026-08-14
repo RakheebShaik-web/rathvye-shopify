@@ -39,7 +39,7 @@ Renders a responsive product card with an editorial image reveal.
   {% endif %}
   <a class="catalog-card__mobile-cta" href="{{ product.url }}">
     {% if product.has_only_default_variant %}View piece{% else %}Choose options{% endif %}
-    <span aria-hidden="true">→</span>
+    <span aria-hidden="true">&rarr;</span>
   </a>
 </article>
 {% stylesheet %}
@@ -62,3 +62,4 @@ Renders a responsive product card with an editorial image reveal.
   @media(prefers-reduced-motion:reduce){.catalog-card__wishlist.is-celebrating,.catalog-card__wishlist.is-celebrating svg{animation:none}}
 </style>
 <style>.catalog-card__tools form{margin:0}.catalog-card__tools button,.catalog-card__tools>a{display:block;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}.catalog-card__tools button:focus-visible,.catalog-card__tools>a:focus-visible{outline:2px solid #000;outline-offset:3px;border-radius:50%}.catalog-card__tools button:disabled{opacity:.45;cursor:not-allowed}</style>
+
