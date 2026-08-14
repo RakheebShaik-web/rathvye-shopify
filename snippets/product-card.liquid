@@ -10,7 +10,7 @@
       {% if product.compare_at_price > product.price %}<span class="catalog-card__badge">{{ 'product.sale' | t }}</span>{% elsif product.available == false %}<span class="catalog-card__badge">{{ 'product.sold_out' | t }}</span>{% endif %}
       <span class="catalog-card__action">{{ 'product.view_piece' | t }}</span>
     </div>
-    <div class="catalog-card__meta">{% if show_vendor %}<small>{{ product.vendor }}</small>{% endif %}<h3>{{ product.title }}</h3><p>{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s> {% endif %}{{ product.price | money }}</p></div>
+    <div class="catalog-card__meta"><h3>{{ product.title }}</h3><p>{% if product.compare_at_price > product.price %}<s>{{ product.compare_at_price | money }}</s> {% endif %}{{ product.price | money }}</p></div>
   </a>
   <div class="catalog-card__tools">
     {% if product.has_only_default_variant and product.available %}<form method="post" action="{{ routes.cart_add_url }}"><input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}"><input type="hidden" name="quantity" value="1"><button type="submit" aria-label="Add {{ product.title | escape }} to bag"><i><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 13H7L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg></i></button></form>{% else %}<a href="{{ product.url }}" aria-label="Choose options for {{ product.title | escape }}"><i><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 13H7L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg></i></a>{% endif %}
