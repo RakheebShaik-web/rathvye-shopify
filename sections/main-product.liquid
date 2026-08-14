@@ -10,7 +10,7 @@
     <button class="product-wishlist" type="button" data-wishlist-toggle data-product-handle="{{ product.handle }}" data-product-title="{{ product.title | escape }}" data-product-url="{{ product.url }}" data-product-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% endif %}" data-product-price="{{ product.price | money | escape }}" aria-label="Save {{ product.title | escape }} to wishlist" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.8a5.4 5.4 0 0 0-7.7 0L12 5.9l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 21l8.8-8.5a5.4 5.4 0 0 0 0-7.7Z"/></svg><span data-wishlist-label>Save to wishlist</span></button>
     {% assign current_variant = product.selected_or_first_available_variant %}
     {% if current_variant.inventory_management and current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= section.settings.low_stock_threshold %}<p class="low-stock" data-low-stock>{{ 'product.low_stock' | t: count: current_variant.inventory_quantity }}</p>{% endif %}
-    {% form 'product', product, class: 'product-form' %}
+    {% if product != blank %}{% form 'product', product, class: 'product-form' %}
       {% unless product.has_only_default_variant %}
         <div class="variant-picker" data-variant-picker>
           {% for option in product.options_with_values %}
@@ -32,7 +32,7 @@
       <p class="product-error" data-product-error role="alert" hidden></p>
       <button class="button product-submit" type="submit" data-add-button {% unless current_variant.available %}disabled{% endunless %}>{% if current_variant.available %}{{ 'product.add_to_bag' | t }}{% else %}{{ 'product.sold_out' | t }}{% endif %}</button>
       {% if section.settings.show_dynamic_checkout and current_variant.available %}<div class="accelerated-checkout">{{ form | payment_button }}</div>{% endif %}
-    {% endform %}
+    {% endform %}{% endif %}
     <form class="delivery-estimator" data-delivery-estimator novalidate><label for="DeliveryPin-{{ section.id }}">Check delivery</label><div><input id="DeliveryPin-{{ section.id }}" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit PIN code" aria-describedby="DeliveryResult-{{ section.id }}" required><button type="submit">Check</button></div><p id="DeliveryResult-{{ section.id }}" data-delivery-result aria-live="polite"></p></form>
     {% unless product.available %}{% form 'customer', class: 'back-in-stock' %}<input type="hidden" name="contact[tags]" value="back-in-stock,{{ product.handle }}"><input type="hidden" name="contact[body]" value="Back in stock request for {{ product.title | escape }}"><label for="BackInStockEmail">{{ 'product.back_in_stock' | t }}</label><div><input id="BackInStockEmail" type="email" name="contact[email]" placeholder="{{ 'newsletter.email' | t }}" required><button type="submit">{{ 'product.notify_me' | t }}</button></div>{% if form.posted_successfully? %}<p>{{ 'product.notify_success' | t }}</p>{% endif %}{{ form.errors | default_errors }}{% endform %}{% endunless %}
     <div class="product-promises"><span><i aria-hidden="true">◇</i>{{ 'product.secure_checkout' | t }}</span><span><i aria-hidden="true">↗</i>{{ 'product.india_delivery' | t }}</span><span><i aria-hidden="true">◌</i>{{ 'product.client_support' | t }}</span></div>
