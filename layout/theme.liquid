@@ -21,7 +21,7 @@
     <a class="skip-link" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
     {% sections 'header-group' %}
     <main id="MainContent" tabindex="-1">{{ content_for_layout }}</main>
-    {% sections 'footer-group' %}
+    {% if request.page_type == 'index' %}{% sections 'footer-group' %}{% endif %}
     {% section 'cart-drawer' %}
     {% render 'theme-scripts' %}
   </body>
