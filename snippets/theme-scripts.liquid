@@ -2,6 +2,7 @@
 <script>
 (()=>{
   const body=document.body;
+  document.addEventListener('click',event=>{const button=event.target.closest('[data-back-to-top]');if(!button)return;event.preventDefault();document.documentElement.scrollTo({top:0,left:0,behavior:'smooth'});document.body.scrollTo({top:0,left:0,behavior:'smooth'});window.scrollTo({top:0,left:0,behavior:'smooth'})});
   const escapeHtml=value=>{const node=document.createElement('div');node.textContent=value||'';return node.innerHTML};
   const money=value=>new Intl.NumberFormat(document.documentElement.lang||'en-IN',{style:'currency',currency:(window.Shopify&&Shopify.currency&&Shopify.currency.active)||'INR'}).format(value/100);
   const toggle=document.querySelector('[data-menu-toggle]');
@@ -56,4 +57,3 @@
   document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(search&&!search.hidden)closeSearch();if(drawer?.getAttribute('aria-hidden')==='false')closeCart()});
 })();
 </script>
-
