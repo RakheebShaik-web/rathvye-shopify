@@ -3,8 +3,8 @@
     <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="MobileMenu" aria-label="Menu"><span></span><span></span></button>
     <a class="wordmark" href="{{ routes.root_url }}">{{ section.settings.wordmark | default: shop.name }}</a>
     <nav class="desktop-nav" aria-label="Primary">
-      {% if section.settings.menu.links.size > 0 %}{% for link in section.settings.menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}{% if link.links.size > 0 %}<span>⌄</span>{% endif %}</a>{% endfor %}{% else %}
-      <a href="{{ routes.root_url }}">Home</a><a href="/collections/womens">Women's wear <span>⌄</span></a><a href="/collections/mens">Men's wear <span>⌄</span></a><a href="/collections/seasonal-outfit">Seasonal outfit <span>⌄</span></a><a href="/collections/new-arrivals">New arrivals</a><a href="/pages/contact">Contact</a>{% endif %}
+      {% if section.settings.menu.links.size > 0 %}{% for link in section.settings.menu.links %}{% assign nav_title = link.title | downcase %}{% unless nav_title contains "men's" or nav_title contains 'mens' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}{% if link.links.size > 0 %}<span>⌄</span>{% endif %}</a>{% endunless %}{% endfor %}{% else %}
+      <a href="{{ routes.root_url }}">Home</a><a href="/collections/womens">Women's wear <span>⌄</span></a><a href="/collections/seasonal-outfit">Seasonal outfit <span>⌄</span></a><a href="/collections/new-arrivals">New arrivals</a><a href="/pages/contact">Contact</a>{% endif %}
     </nav>
     <div class="header-actions">
       <button type="button" data-search-open aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.2 4.2"/></svg></button>
@@ -13,7 +13,7 @@
       <button type="button" data-cart-open aria-label="Open bag" class="bag-action"><span>BAG</span><b data-cart-count>{{ cart.item_count }}</b></button>
     </div>
   </div>
-  <nav id="MobileMenu" class="mobile-menu" data-mobile-menu hidden>{% if section.settings.menu.links.size > 0 %}{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title }}</a>{% endfor %}{% else %}<a href="/">Home</a><a href="/collections/womens">Women's wear</a><a href="/collections/mens">Men's wear</a><a href="/collections/seasonal-outfit">Seasonal outfit</a><a href="/collections/new-arrivals">New arrivals</a><a href="/pages/contact">Contact</a>{% endif %}</nav>
+  <nav id="MobileMenu" class="mobile-menu" data-mobile-menu hidden>{% if section.settings.menu.links.size > 0 %}{% for link in section.settings.menu.links %}{% assign mobile_title = link.title | downcase %}{% unless mobile_title contains "men's" or mobile_title contains 'mens' %}<a href="{{ link.url }}">{{ link.title }}</a>{% endunless %}{% endfor %}{% else %}<a href="/">Home</a><a href="/collections/womens">Women's wear</a><a href="/collections/seasonal-outfit">Seasonal outfit</a><a href="/collections/new-arrivals">New arrivals</a><a href="/pages/contact">Contact</a>{% endif %}</nav>
   <div class="search-overlay" data-search-overlay hidden><button class="search-overlay__backdrop" data-search-close aria-label="Close"></button><div class="search-overlay__panel"><header><p>What are you looking for?</p><button data-search-close aria-label="Close">×</button></header><form action="{{ routes.search_url }}" method="get"><input type="search" name="q" placeholder="Search products" data-predictive-input><input type="hidden" name="type" value="product"><button>Search</button></form><div data-predictive-results></div></div></div>
 </header>
 {% stylesheet %}
