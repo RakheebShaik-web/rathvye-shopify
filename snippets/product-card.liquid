@@ -44,3 +44,10 @@
   @media(prefers-reduced-motion:reduce){.catalog-card__wishlist.is-celebrating,.catalog-card__wishlist.is-celebrating svg{animation:none}}
 </style>
 <style>.catalog-card__tools form{margin:0}.catalog-card__tools button,.catalog-card__tools>a{display:block;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}.catalog-card__tools button:focus-visible,.catalog-card__tools>a:focus-visible{outline:2px solid #000;outline-offset:3px;border-radius:50%}.catalog-card__tools button:disabled{opacity:.45;cursor:not-allowed}</style>
+<style>
+  @media(max-width:767px), (hover:none) and (pointer:coarse){
+    .catalog-card__media{isolation:isolate;contain:layout paint;overflow:clip}
+    .catalog-card__media>.catalog-card__image--primary{position:absolute;inset:0}
+    .catalog-card__media>.catalog-card__image--secondary{display:none!important}
+  }
+</style>
