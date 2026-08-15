@@ -4,6 +4,7 @@ $themeRoot = Split-Path -Parent $PSScriptRoot
 $productTemplate = Get-Content -Raw (Join-Path $themeRoot 'sections/main-product.liquid')
 $productCard = Get-Content -Raw (Join-Path $themeRoot 'snippets/product-card.liquid')
 $header = Get-Content -Raw (Join-Path $themeRoot 'sections/header.liquid')
+$footerGroup = Get-Content -Raw (Join-Path $themeRoot 'sections/footer-group.json') | ConvertFrom-Json
 
 $failures = [System.Collections.Generic.List[string]]::new()
 
@@ -25,6 +26,10 @@ if ($productCard -notmatch 'catalog-card__media>\.catalog-card__image--primary\{
 
 if ($header -notmatch '\.menu-toggle\{display:grid;width:44px;height:44px;[^}]*border:0!important') {
   $failures.Add('The mobile menu must retain a borderless 44px touch target.')
+}
+
+if ($footerGroup.sections.footer.PSObject.Properties.Name -contains 'blocks') {
+  $failures.Add('Footer group blocks must be declared in the footer section schema before use.')
 }
 
 if ($failures.Count -gt 0) {
