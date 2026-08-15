@@ -24,8 +24,12 @@ if ($productCard -notmatch 'catalog-card__media>\.catalog-card__image--primary\{
   $failures.Add('The primary mobile product image must be pinned to the media frame.')
 }
 
-if ($header -notmatch '\.menu-toggle\{display:grid;width:44px;height:44px;[^}]*border:0!important') {
+if ($header -notmatch '\.menu-toggle\{position:relative;display:block;width:44px;height:44px;[^}]*border:0!important') {
   $failures.Add('The mobile menu must retain a borderless 44px touch target.')
+}
+
+if ($header -notmatch '\.menu-toggle:before,\.menu-toggle:after\{[^}]*width:22px;height:1px;background:#000') {
+  $failures.Add('The mobile menu icon must be drawn as two lines only.')
 }
 
 if ($footerGroup.sections.footer.PSObject.Properties.Name -contains 'blocks') {
