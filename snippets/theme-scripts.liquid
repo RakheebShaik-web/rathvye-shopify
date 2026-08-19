@@ -55,5 +55,6 @@
   syncWishlist();renderRecent();
   if(matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches){document.addEventListener('pointermove',event=>{const button=event.target.closest('.button');if(!button)return;const rect=button.getBoundingClientRect();button.style.setProperty('--magnetic-x',`${(event.clientX-(rect.left+rect.width/2))*.07}px`);button.style.setProperty('--magnetic-y',`${(event.clientY-(rect.top+rect.height/2))*.1}px`)});document.addEventListener('pointerout',event=>{const button=event.target.closest('.button');if(button){button.style.removeProperty('--magnetic-x');button.style.removeProperty('--magnetic-y')}})}
   document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(search&&!search.hidden)closeSearch();if(drawer?.getAttribute('aria-hidden')==='false')closeCart()});
+  if(matchMedia('(hover:none)').matches){document.addEventListener('touchstart',()=>{},{passive:true});document.querySelectorAll('.catalog-card, .product-card').forEach(card=>{card.addEventListener('touchend',()=>{setTimeout(()=>{card.classList.remove('is-touched');void card.offsetWidth;card.classList.add('is-touched');setTimeout(()=>card.classList.remove('is-touched'),400)},50)},{passive:true})})}
 })();
 </script>
