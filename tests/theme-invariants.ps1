@@ -28,8 +28,8 @@ if ($header -notmatch '\.menu-toggle\{position:relative;display:block;width:44px
   $failures.Add('The mobile menu must retain a borderless 44px touch target.')
 }
 
-if ($header -notmatch '\.menu-toggle:before,\.menu-toggle:after\{[^}]*width:22px;height:1px;background:#000') {
-  $failures.Add('The mobile menu icon must be drawn as two lines only.')
+if ($header -notmatch '\.menu-toggle:before\{top:15px\}' -or $header -notmatch '\.menu-toggle span\{top:22px;margin:0\}' -or $header -notmatch '\.menu-toggle:after\{top:29px\}') {
+  $failures.Add('The mobile menu icon must be drawn as three evenly spaced lines.')
 }
 
 if ($footerGroup.sections.footer.PSObject.Properties.Name -contains 'blocks') {
